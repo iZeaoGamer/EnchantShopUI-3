@@ -106,7 +106,7 @@ class Main extends PluginBase implements Listener{
 	  $api = $this->getServer()->getPluginManager()->getPlugin(self::FORM_API);
         $form = $api->createCustomForm(function (Player $event, array $data) use ($id , $array){
 			$player = $event->getPlayer();
-			  $item = $player->getInventory()->getItemInHand($item);
+			  $player = $player->getInventory()->getItemInHand($item);
                 $ench = Enchantment::getEnchantmentByName(strtolower($array[$id][0]));
                 $item->addEnchantment(new EnchantmentInstance($ench, (int) $data[0]));
 				$player->getInventory()->addItem($item);
