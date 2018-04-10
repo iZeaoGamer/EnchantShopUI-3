@@ -1,11 +1,10 @@
 <?php
+
 namespace VCraftMCPE;
 
 use pocketmine\{Player, Server};
 use pocketmine\plugin\PluginBase;
-
 use pocketmine\utils\TextFormat;
-
 use pocketmine\item\Item;
 use pocketmine\item\enchantment\Enchantment;
 use pocketmine\item\enchantment\EnchantmentInstance;
@@ -110,15 +109,12 @@ class Main extends PluginBase implements Listener{
         $form = $api->createCustomForm(function (Player $event, array $data) use ($id , $array){
 			$player = $event->getPlayer();
 			  $item = $player->getInventory()->getItemInHand();
-       }
-       if($this->eapi->myMoney($player->getName()) > $price){
                 $this->eapi->reduceMoney($player->getName(), $price, true);
 	        $player->sendMessage("§bYou have been charged §d$price §band got a enchant!");
                 $ench = Enchantment::getEnchantmentByName(strtolower($array[$id][0]));
                 $item->addEnchantment(new EnchantmentInstance($ench, (int) $data[0]));
 		$player->getInventory()->setItemInHand($item);
-              }else{
-	        $player->sendMessage("§cYou do not have enough money to buy this enchant!");
+	        $player->sendMessage("§bEnchant succeeded.");
 	       
          });
        $form->setTitle("§bBuy enchantment");
@@ -127,4 +123,3 @@ class Main extends PluginBase implements Listener{
 	  
   }
 }
-
