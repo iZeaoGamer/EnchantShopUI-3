@@ -109,7 +109,7 @@ class Main extends PluginBase implements Listener{
 			  $item = $player->getInventory()->getItemInHand();
                 $ench = Enchantment::getEnchantmentByName(strtolower($array[$id][0]));
                 $item->addEnchantment(new EnchantmentInstance($ench, (int) $data[0]));
-				$player->getInventory()->addItem($item);
+				$player->getInventory()->setItem($item);
          });
        $form->setTitle("Buy enchantment");
        $form->addSlider("Level", 1, 5, 1, -1);
