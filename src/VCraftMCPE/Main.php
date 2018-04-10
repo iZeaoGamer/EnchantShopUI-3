@@ -110,9 +110,10 @@ class Main extends PluginBase implements Listener{
                 $ench = Enchantment::getEnchantmentByName(strtolower($array[$id][0]));
                 $item->addEnchantment(new EnchantmentInstance($ench, (int) $data[0]));
 				$player->getInventory()->setItemInHand($item);
+		$player->sendMessage("§aEnchant has been bought successfully!");
          });
-       $form->setTitle("Buy enchantment");
-       $form->addSlider("Level", 1, 5, 1, -1);
+       $form->setTitle("§bBuy enchantment");
+       $form->addSlider("Level", 1, 10, 1, -1);
        $form->sendToPlayer($player);
 	  
   }
