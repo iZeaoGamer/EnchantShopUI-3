@@ -18,6 +18,7 @@ class Main extends PluginBase implements Listener{
   
   const COMMAND_NAME = "enchantui";
   const FORM_API = "FormAPI";
+  const EconomyAPI = "EconomyAPI";
  public $prices = [
     "EXIT" => [0],
     "PROTECTION" => [1],
@@ -88,6 +89,7 @@ class Main extends PluginBase implements Listener{
     }
   public function EnchantForm($player){
         $plugin = $this->getServer()->getPluginManager();
+	$economyapi = $plugin->getPlugin(self::EconomyAPI);
         $formapi = $plugin->getPlugin(self::FORM_API);
         $form = $formapi->createSimpleForm(function (Player $event, array $args){
             $result = $args[0];
@@ -103,14 +105,21 @@ class Main extends PluginBase implements Listener{
   }
   public function ShopForm($player, $id){
 	  $array = $this->idss;
+	  $eapi = $this->getServer()->getPluginManager()->getPlugin(self::EconomyAPI);
 	  $api = $this->getServer()->getPluginManager()->getPlugin(self::FORM_API);
         $form = $api->createCustomForm(function (Player $event, array $data) use ($id , $array){
 			$player = $event->getPlayer();
 			  $item = $player->getInventory()->getItemInHand();
+       }
+       if($this->eapi->myMoney($player->getName()) > $price){
+                $this->eapi->reduceMoney($player->getName(), $price, true);
+	        $player->sendMessage("§bYou have been charged §d$price §band got a enchant!");
                 $ench = Enchantment::getEnchantmentByName(strtolower($array[$id][0]));
                 $item->addEnchantment(new EnchantmentInstance($ench, (int) $data[0]));
-				$player->getInventory()->setItemInHand($item);
-		$player->sendMessage("§aEnchant has been bought successfully!");
+		$player->getInventory()->setItemInHand($item);
+              }else{
+	        $player->sendMessage("§cYou do not have enough money to buy this enchant!");
+	       
          });
        $form->setTitle("§bBuy enchantment");
        $form->addSlider("Level", 1, 10, 1, -1);
