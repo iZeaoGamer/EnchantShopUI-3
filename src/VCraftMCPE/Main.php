@@ -16,7 +16,7 @@ use onebone\economyapi\EconomyAPI;
 
 class Main extends PluginBase implements Listener{
   
-  const COMMAND_NAME = "eshop";
+  const COMMAND_NAME = "enchant";
   const FORM_API = "FormAPI";
   
   public $Enchants = [
@@ -52,6 +52,7 @@ class Main extends PluginBase implements Listener{
   public function onEnable(){
         $this->getLogger()->info("Enchant GUI has been  enabled");
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
+	  Server::getInstance()->getCommandMap()->unregister(Server::getInstance()->getCommandMap()->getCommand("enchant"));
     }
    public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args): bool{
         if(strtolower($cmd->getName()) === self::COMMAND_NAME and $sender instanceof Player) $this->EnchantForm($sender);
@@ -134,7 +135,7 @@ class Main extends PluginBase implements Listener{
           if(!($data[0] == null )) {
           }
          });
-       $form->setTitle("§6Void§bFactions§cPE §dEnchant Shop");
+       $form->setTitle("§6Zector§bPE §dEnchant Shop");
        $form->addSlider("Level", 1, 5, 1, -1);
        $form->sendToPlayer($player);
 	  
