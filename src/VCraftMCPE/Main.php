@@ -90,7 +90,7 @@ class Main extends PluginBase implements Listener{
         $plugin = $this->getServer()->getPluginManager();
 	$economyapi = $plugin->getPlugin(self::EconomyAPI);
         $formapi = $plugin->getPlugin(self::FORM_API);
-        $form = $formapi->createSimpleForm(function (Player $event, array $args){
+        $form = $formapi->createSimpleForm(function (Player $event, $args){
             $result = $args[0];
             $player = $event->getPlayer();
             if($result > 0){
@@ -106,7 +106,7 @@ class Main extends PluginBase implements Listener{
 	  $array = $this->idss;
 	  $eapi = $this->getServer()->getPluginManager()->getPlugin(self::EconomyAPI);
 	  $api = $this->getServer()->getPluginManager()->getPlugin(self::FORM_API);
-        $form = $api->createCustomForm(function (Player $event, array $data) use ($id , $array){
+        $form = $api->createCustomForm(function (Player $event, $data) use ($id , $array){
 			$player = $event->getPlayer();
 			  $item = $player->getInventory()->getItemInHand();
                 $this->eapi->reduceMoney($player->getName(), $price, true);
